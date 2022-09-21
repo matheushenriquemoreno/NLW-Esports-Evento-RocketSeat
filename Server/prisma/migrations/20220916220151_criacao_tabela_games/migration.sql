@@ -1,0 +1,6 @@
+-- CreateTable
+CREATE TABLE "Game" (
+    "Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "Title" TEXT NOT NULL,
+    "BannerUrl" TEXT NOT NULL
+);

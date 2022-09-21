@@ -1,0 +1,14 @@
+-- CreateTable
+CREATE TABLE "Anuncio" (
+    "Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "gameId" INTEGER NOT NULL,
+    "Name" TEXT NOT NULL,
+    "AnosDeJogo" TEXT NOT NULL,
+    "Discord" TEXT NOT NULL,
+    "DiasDaSemana" TEXT NOT NULL,
+    "HorasInicio" INTEGER NOT NULL,
+    "HorasFinal" INTEGER NOT NULL,
+    "UsaChatDeVoz" BOOLEAN NOT NULL,
+    "DataCriacao" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Anuncio_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game" ("Id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
