@@ -1,10 +1,11 @@
 import './styles/main.css';
 import logo from './assets/logo.png'
-import CardJogo from './components/CardJogo';
-import BannerAnuncio from './components/BannerAnuncio';
+import CardJogo from './components/CardJogo/CardJogo';
+import BannerAnuncio from './components/BannerAnuncio/BannerAnuncio';
 import { useState, useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-
+import FormAnuncio from './components/FormAnuncio/FormAnuncio';
+import Modal from './components/Modal/Modal';
 
 interface gamesProps {
   Id: number,
@@ -21,8 +22,8 @@ function App() {
 
   useEffect(() => {
     fetch("http://localhost:3333/games")
-    .then(response => response.json())
-    .then(dados => setGames(dados))
+      .then(response => response.json())
+      .then(dados => setGames(dados))
   }, [])
 
   return (
@@ -33,35 +34,26 @@ function App() {
         Seu <span className='text-transparent bg-nlw-gradiant bg-clip-text'>duo</span> esta aqui
       </h1>
 
-       <div className='grid grid-cols-6 gap-6 mt-4 my-15'>
-        { games.map(game => {
-          return (
-             <CardJogo 
-              key={game.Id}
-              title={game.Title}
-              UrlImage={game.BannerUrl}
-              QuantidadeAnuncios={game._count.Anuncios}
+      <div className='grid grid-cols-6 gap-6 mt-4 my-15'>
+        {
+          games.map(game => {
+            return (
+              <CardJogo
+                key={game.Id}
+                title={game.Title}
+                UrlImage={game.BannerUrl}
+                QuantidadeAnuncios={game._count.Anuncios}
               />
-          )
-        })}
-        
-       </div>
-        <Dialog.Root>
-          <BannerAnuncio />
+            )
+          })}
 
-        <Dialog.Portal>
-        <Dialog.Overlay className='bg-black/60 inset-0 fixed' />
-        <Dialog.Content className='fixed bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[580px] shadow-black/25 '>
-          <Dialog.Title className='text-center'> publique um Anuncio </Dialog.Title>
-
-          <Dialog.Content>
-            Conteudo aqui
-
-          </Dialog.Content>
-        </Dialog.Content>
-        </Dialog.Portal>
-        </Dialog.Root>
-
+      </div>
+      <Dialog.Root>
+        <BannerAnuncio />
+        <Modal Title='publique um Anuncio'  >
+          <FormAnuncio Games={games} />
+        </Modal>
+      </Dialog.Root>
     </div>
 
 
